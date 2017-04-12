@@ -1,5 +1,5 @@
 require 'websocket/driver'
-require 'celluloid'
+require 'celluloid/current'
 require 'celluloid/io'
 
 module Celluloid

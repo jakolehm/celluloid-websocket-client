@@ -12,6 +12,10 @@ module Celluloid
           uri = URI.parse(url)
           port = uri.port || (uri.scheme == "ws" ? 80 : 443)
           @socket = Celluloid::IO::TCPSocket.new(uri.host, port)
+          if uri.scheme == "wss"
+            @socket = Celluloid::IO::SSLSocket.new(@socket)
+            @socket.connect
+          end
           @client = ::WebSocket::Driver.client(self)
           @handler = handler
 
@@ -50,5 +54,3 @@ module Celluloid
     end
   end
 end
-
-
